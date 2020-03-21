@@ -6,6 +6,7 @@ import { Questions } from "./entity/Questions";
 import { ActivityService } from "./services/ActivityService";
 
 const port = 3000;
+const host = "db-server"
 
 class App {
   public express: express.Application;
@@ -30,7 +31,7 @@ class App {
     // INIT THE DATABASE WITH ENTITIES
     createConnection({
       type: "postgres",
-      host: "localhost",
+      host: host,
       port: 5432,
       username: "postgres",
       password: "postgres",
