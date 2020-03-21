@@ -3,10 +3,14 @@ import { createConnection } from "typeorm";
 import { Activities } from "./entity/Activities";
 import { Questions } from "./entity/Questions";
 
+import { ActivityService } from "./services/ActivityService";
+
 const port = 3000;
 
 class App {
-  public express;
+  public express: express.Application;
+
+  private activityService: ActivityService;
 
   constructor() {
     this.express = express();
@@ -37,8 +41,17 @@ class App {
     })
       .then(connection => {
         // here you can start to work with your entities
+        this.activityService = new ActivityService();
       })
       .catch(error => console.log(error));
+
+
+
+      this.express.get('/activites', (req,res) => {
+        
+        this.activityService.findActivities().then((data) => res.send(data))
+        
+      })
 
     this.express.listen(port, () =>
       console.log(`Example app listening on port ${port}!`)
