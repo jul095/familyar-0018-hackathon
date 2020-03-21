@@ -1,4 +1,4 @@
-import { Column, ManyToOne, Entity } from 'typeorm'
+import { Column, Entity } from 'typeorm'
 import {PerBaseEntity} from '../entity/PerBaseEntity'
 
 @Entity()

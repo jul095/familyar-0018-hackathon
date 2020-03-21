@@ -4,14 +4,16 @@ import { Activities } from "./entity/Activities";
 import { Questions } from "./entity/Questions";
 
 import { ActivityService } from "./services/ActivityService";
+import { QuestionsService } from "./services/QuestionsService";
 
 const port = 3000;
-const host = "db-server"
+const host = "localhost";
 
 class App {
   public express: express.Application;
 
   private activityService: ActivityService;
+  private questionService: QuestionsService;
 
   constructor() {
     this.express = express();
@@ -27,7 +29,6 @@ class App {
     });
     this.express.use("/", router);
 
-
     // INIT THE DATABASE WITH ENTITIES
     createConnection({
       type: "postgres",
@@ -42,17 +43,21 @@ class App {
     })
       .then(connection => {
         // here you can start to work with your entities
+
+        // SERVICE LOCATOR
         this.activityService = new ActivityService();
+        this.questionService = new QuestionsService();
       })
       .catch(error => console.log(error));
 
+    this.express.get("/activites", (req, res) => {
+      this.activityService.findActivities().then(data => res.send(data));
+    });
 
 
-      this.express.get('/activites', (req,res) => {
-        
-        this.activityService.findActivities().then((data) => res.send(data))
-        
-      })
+    this.express.get('/randomQuestion', (req,res) => {
+      this.questionService.findRandomQuestion().then((data) => res.send(data))
+    })
 
     this.express.listen(port, () =>
       console.log(`Example app listening on port ${port}!`)
