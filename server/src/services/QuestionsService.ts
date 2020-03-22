@@ -10,12 +10,11 @@ export class QuestionsService {
   //  PUBLIC METHODS
   //
 
-  public async findRandomQuestion(): Promise<Questions> {
-    return this.activityRepository
+  public findRandomQuestion(): Promise<Questions> {
+      return this.activityRepository
       .createQueryBuilder()
-      .select("id")
+      .select()
       .orderBy("RANDOM()")
-      .limit(1)
-      .getOne();
+      .limit(1).getOne()
   }
 }

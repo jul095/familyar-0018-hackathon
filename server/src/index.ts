@@ -17,7 +17,7 @@ import {
   rawDeleteQuestions
 } from "./seed";
 
-const newSeed = true;
+const newSeed = false;
 const port = 3000;
 const host = "localhost";
 
@@ -88,8 +88,8 @@ class App {
       this.activityService.findActivities().then(data => res.send(data));
     });
 
-    this.express.get("/randomQuestion", (req, res) => {
-      this.questionService.findRandomQuestion().then(data => res.send(data));
+    this.express.get("/randomquestion", (req, res) => {
+      this.questionService.findRandomQuestion().then(data =>  res.send(data));
     });
 
     const urlencodedParser = bodyParser.urlencoded({
