@@ -7,6 +7,8 @@ import { ActivityService } from "./services/ActivityService";
 import { QuestionsService } from "./services/QuestionsService";
 import * as bodyParser from 'body-parser'
 import { FamilyService } from "./services/FamilyService";
+import { FamilyMember } from "./entity/FamilyMember";
+import { Family } from "./entity/Family";
 
 const port = 3000;
 const host = "localhost";
@@ -33,6 +35,12 @@ class App {
     this.express.use("/", router);
 
 
+    this.express.use(bodyParser.json());
+    this.express.use(bodyParser.urlencoded({ extended: false }));
+
+ 
+
+
     // INIT THE DATABASE WITH ENTITIES
     createConnection({
       type: "postgres",
@@ -41,19 +49,21 @@ class App {
       username: "postgres",
       password: "postgres",
       database: "family",
-      entities: [Activities, Questions],
+      entities: [Activities, Questions, Family, FamilyMember],
       synchronize: true,
       logging: false
     })
       .then(connection => {
-        // here you can start to work with your entities
-
         // SERVICE LOCATOR
         this.activityService = new ActivityService();
         this.questionService = new QuestionsService();
         this.familyService = new FamilyService();
       })
       .catch(error => console.log(error));
+
+    //
+    //  REST Endpoints
+    //
 
     this.express.get("/activites", (req, res) => {
       this.activityService.findActivities().then(data => res.send(data));
@@ -63,16 +73,23 @@ class App {
       this.questionService.findRandomQuestion().then(data => res.send(data));
     });
 
-    this.express.post("family/new", (req, res) => {
-      console.log(JSON.parse(req.body));
-      this.familyService.newFamily(JSON.parse(req.body))
+
+
+    const urlencodedParser = bodyParser.urlencoded({
+      extended: false,
+    })
+
+
+    this.express.post("/family/new", urlencodedParser, (req, res) => {
+      console.log(req.body);
+      this.familyService.newFamily(req.body).then((data) => res.send(data));
     });
 
-
-
-    this.express.post("/member/new", (req, res) => {
-        
+    
+    this.express.post("/member/new", urlencodedParser, (req, res) => {
+        this.familyService.addNewFamilyMember(req.body).then((data) => res.send(data));
     });
+
 
     this.express.listen(port, () =>
       console.log(`Example app listening on port ${port}!`)

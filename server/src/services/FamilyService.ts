@@ -21,4 +21,12 @@ export class FamilyService {
     )
   }
 
+
+
+  public addNewFamilyMember(familyMember: FamilyMember): Promise<FamilyMember> {
+    return this.familyMemberRepository.save(
+      familyMember
+    )
+  }
+
 } 
