@@ -11,6 +11,6 @@ export class Questions extends PerBaseEntity{
   category: string;
 
   @Column({nullable: true})
-  ageOfChild: string;
+  ageOfChild: number;
 
 }
