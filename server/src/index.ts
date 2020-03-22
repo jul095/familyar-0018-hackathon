@@ -10,6 +10,8 @@ import { FamilyService } from "./services/FamilyService";
 import { FamilyMember } from "./entity/FamilyMember";
 import { Family } from "./entity/Family";
 
+
+
 import {
   rawSQLActivities,
   rawSQLQuestions,
@@ -20,6 +22,8 @@ import {
 const newSeed = true;
 const port = 3000;
 const host = "localhost";
+
+const corsAddress = "*"
 
 class App {
   public express: express.Application;
@@ -85,15 +89,18 @@ class App {
     //
 
     this.express.get("/activites", (req, res) => {
+      res.header('Access-Control-Allow-Origin', corsAddress);
       this.activityService.findActivities().then(data => res.send(data));
     });
 
     this.express.get("/randomquestion", (req, res) => {
+      res.header('Access-Control-Allow-Origin', corsAddress);
       this.questionService.findRandomQuestion().then(data =>  res.send(data));
     });
 
 
     this.express.get("/suitablequestion", (req, res) => {
+      res.header('Access-Control-Allow-Origin', corsAddress);
       this.questionService.findSuitableQuestion(req.body.age).then(data =>  res.send(data));
     });
 
@@ -102,11 +109,13 @@ class App {
     });
 
     this.express.post("/family/new", urlencodedParser, (req, res) => {
+      res.header('Access-Control-Allow-Origin', corsAddress);
       console.log(req.body);
       this.familyService.newFamily(req.body).then(data => res.send(data));
     });
 
     this.express.post("/member/new", urlencodedParser, (req, res) => {
+      res.header('Access-Control-Allow-Origin', corsAddress);
       this.familyService
         .addNewFamilyMember(req.body)
         .then(data => res.send(data));
