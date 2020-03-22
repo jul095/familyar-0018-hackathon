@@ -23,6 +23,7 @@ import React, { useState } from "react";
 import { pin } from "ionicons/icons";
 import { RouteComponentProps } from "react-router";
 import "./FeedPage.scss";
+import axios from "axios";
 
 interface StateProps {
   hasSeenTutorial: boolean;
@@ -30,8 +31,40 @@ interface StateProps {
 
 interface FeedProps extends RouteComponentProps, StateProps {}
 
+const backendUrl = "http://localhost:3000";
+
+const getQuestions = () => {
+  return axios({
+    url: backendUrl + "/randomquestion",
+    method: "get"
+  }).then(response => {
+    console.log(response);
+    return response.data;
+  });
+};
+
+const getRandomActivity = () => {
+  return axios({
+    url: backendUrl + "/randomactivity",
+    method: "get"
+  }).then(response => {
+    console.log(response);
+    return response.data;
+  });
+};
+
 const FeedPage: React.FC<FeedProps> = hasSeenTutorial => {
   const [checked, setChecked] = useState(false);
+
+  const [items, setItems] = React.useState([]);
+
+  const [activities, setActivitySate] = React.useState([]);
+
+  React.useEffect(() => {
+    getQuestions().then(data => setItems(data));
+    getRandomActivity().then(data => setActivitySate(data));
+  }, []);
+  
 
   const changeHandler = (status: boolean) => {
     status ? setChecked(true) : setChecked(false);
@@ -63,7 +96,19 @@ const FeedPage: React.FC<FeedProps> = hasSeenTutorial => {
             <IonCardTitle>Frage des Tages</IonCardTitle>
           </IonCardHeader>
 
-          <IonCardContent>
+          {items.map(question => {
+            return (
+              <IonCardContent>
+                <div className="card-content">
+                  Vorname des Kindes,
+                  <br /> {question["question"]}
+                </div>
+                <div className="task-time">Heute</div>
+              </IonCardContent>
+            );
+          })}
+
+        <IonCardContent>
             <div className="card-content">
               Martin,
               <br /> welches Spiel spielst du im Moment am liebsten?
@@ -90,27 +135,26 @@ const FeedPage: React.FC<FeedProps> = hasSeenTutorial => {
             </IonButton>
           </IonItem>
 
-          <IonCardContent>
-            <h2 className="card-content">Bereite einen Filmeabend vor</h2>
-            {checked && (
-              <IonGrid>
-                <IonItem color="light">
-                  <IonCheckbox color="medium" slot="start"></IonCheckbox>
-                  <IonLabel>Kaufe Süßigkeiten</IonLabel>
-                </IonItem>
-                <IonItem color="light">
-                  <IonCheckbox color="medium" slot="start"></IonCheckbox>
-                  <IonLabel>
-                    Suche einen Film heraus
-                    <br /> oder lasse dein Kind
-                    <br />
-                    einen auswählen
-                  </IonLabel>
-                </IonItem>
-              </IonGrid>
-            )}
-            <div className="task-time">Heute</div>
-          </IonCardContent>
+          {activities.map(activity => {
+            return (
+              <IonCardContent>
+                <h2 className="card-content">{activity["game"]}</h2>
+                {checked && (
+                  <IonGrid>
+                    <IonItem color="light">
+                      <IonCheckbox color="medium" slot="start"></IonCheckbox>
+                      <IonLabel>Kaufe Süßigkeiten</IonLabel>
+                    </IonItem>
+                    <IonItem color="light">
+                      <IonCheckbox color="medium" slot="start"></IonCheckbox>
+                      <IonLabel>{activity["description"]}</IonLabel>
+                    </IonItem>
+                  </IonGrid>
+                )}
+                <div className="task-time">Heute</div>
+              </IonCardContent>
+            );
+          })}
         </IonCard>
 
         <IonCard color="medium">

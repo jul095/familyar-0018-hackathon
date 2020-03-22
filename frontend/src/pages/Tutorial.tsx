@@ -81,7 +81,7 @@ const Tutorial: React.FC<TutorialProps> = ({ history, setHasSeenTutorial }) => {
   };
 
   const dislikeFamilyar = () => {
-    history.push("/login", { direction: "none" });
+    history.push("/tabs/signup", { direction: "none" });
   };
 
   const handleSlideChangeStart = () => {
