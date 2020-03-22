@@ -5,6 +5,8 @@ import { Questions } from "./entity/Questions";
 
 import { ActivityService } from "./services/ActivityService";
 import { QuestionsService } from "./services/QuestionsService";
+import * as bodyParser from 'body-parser'
+import { FamilyService } from "./services/FamilyService";
 
 const port = 3000;
 const host = "localhost";
@@ -14,6 +16,7 @@ class App {
 
   private activityService: ActivityService;
   private questionService: QuestionsService;
+  private familyService: FamilyService;
 
   constructor() {
     this.express = express();
@@ -28,6 +31,7 @@ class App {
       });
     });
     this.express.use("/", router);
+
 
     // INIT THE DATABASE WITH ENTITIES
     createConnection({
@@ -47,6 +51,7 @@ class App {
         // SERVICE LOCATOR
         this.activityService = new ActivityService();
         this.questionService = new QuestionsService();
+        this.familyService = new FamilyService();
       })
       .catch(error => console.log(error));
 
@@ -54,10 +59,20 @@ class App {
       this.activityService.findActivities().then(data => res.send(data));
     });
 
+    this.express.get("/randomQuestion", (req, res) => {
+      this.questionService.findRandomQuestion().then(data => res.send(data));
+    });
 
-    this.express.get('/randomQuestion', (req,res) => {
-      this.questionService.findRandomQuestion().then((data) => res.send(data))
-    })
+    this.express.post("family/new", (req, res) => {
+      console.log(JSON.parse(req.body));
+      this.familyService.newFamily(JSON.parse(req.body))
+    });
+
+
+
+    this.express.post("/member/new", (req, res) => {
+        
+    });
 
     this.express.listen(port, () =>
       console.log(`Example app listening on port ${port}!`)
