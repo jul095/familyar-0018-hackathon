@@ -1,0 +1,53 @@
+#tutorial-page {
+  ion-toolbar {
+    // TODO test transparent and fullscreen
+    --background: transparent;
+    --border-color: transparent;
+  }
+
+  .swiper-slide {
+    display: block;
+  }
+
+  .slide-title {
+    margin-top: 2.8rem;
+  }
+
+  .slide-logo {
+    margin-top: 2.8rem;
+    height: 105px;
+    margin-bottom: 2.8rem;
+  }
+
+  .slide-image {
+    max-height: 25%;
+    max-width: 30%;
+    margin: 36px 0;
+    pointer-events: none;
+  }
+
+  .thumbs-image {
+
+    padding: 15px;
+
+  }
+
+  b {
+    font-weight: 500;
+  }
+
+  p {
+    padding: 0 40px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--ion-color-step-600, #ffffff);
+
+    b {
+      color: var(--ion-text-color, #000000);
+    }
+  }
+
+  dialog {
+    color: white;
+  }
+}

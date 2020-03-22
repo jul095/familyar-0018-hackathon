@@ -93,6 +93,11 @@ class App {
       this.activityService.findActivities().then(data => res.send(data));
     });
 
+    this.express.get("/randomactivity", (req, res) => {
+      res.header('Access-Control-Allow-Origin', corsAddress);
+      this.activityService.findRandomActivities().then(data => res.send(data));
+    });
+
     this.express.get("/randomquestion", (req, res) => {
       res.header('Access-Control-Allow-Origin', corsAddress);
       this.questionService.findRandomQuestion().then(data =>  res.send(data));
@@ -120,6 +125,8 @@ class App {
         .addNewFamilyMember(req.body)
         .then(data => res.send(data));
     });
+
+    
 
     this.express.listen(port, () =>
       console.log(`Example app listening on port ${port}!`)

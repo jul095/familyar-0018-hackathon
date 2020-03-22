@@ -1,0 +1,17 @@
+.ion-header {
+  left: 50%;
+  text-align: center;
+  text-emphasis-color: white;
+}
+
+ion-label {
+  text-emphasis-color: red;
+}
+
+rank-number {
+  padding-left: 50px;
+  font-size: 6ex;
+  background-color: red($color: #000000);
+  text-align: center;
+  margin-right: 100px;
+}

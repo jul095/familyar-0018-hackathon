@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "docker-compose up -d --force-recreate && cd server && nodemon --ignore '*.spec.ts' --exec ts-node src/index.ts",
-    "build": "cd server && rimraf ./dist && tsc -b ./tsconfig.json && cp ./package.json ./dist",
+    "start:server": "docker-compose up -d --force-recreate && cd server && nodemon --ignore '*.spec.ts' --exec ts-node src/index.ts",
+    "build:server": "cd server && rimraf ./dist && tsc -b ./tsconfig.json && cp ./package.json ./dist",
+    "start:web": "cd frontend && ionic serve",
+    "build:web": "cd frontend && rimraf ./android && ionic build && ionic cap add android && ionic cap open android",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

@@ -9,22 +9,22 @@ export class QuestionsService {
   //
   //  PUBLIC METHODS
   //
-  public findRandomQuestion(): Promise<Questions> {
+  public findRandomQuestion(): Promise<Questions[]> {
     return this.questionRepository
       .createQueryBuilder()
       .select()
       .orderBy("RANDOM()")
       .limit(1)
-      .getOne();
+      .getMany();
   }
 
-  public findSuitableQuestion(ageOfChild: number): Promise<Questions> {
+  public findSuitableQuestion(ageOfChild: number): Promise<Questions[]> {
     return this.questionRepository
       .createQueryBuilder()
       .select()
       .where("'ageOfChild' >= :age", { age: ageOfChild })
       .orderBy("RANDOM()")
       .limit(1)
-      .getOne();
+      .getMany();
   }
 }

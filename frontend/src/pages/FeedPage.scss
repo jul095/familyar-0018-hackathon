@@ -1,0 +1,46 @@
+.ion-header {
+  left: 50%;
+  text-align: center;
+  text-emphasis-color: white;
+}
+
+.card-content {
+  padding-left: 1em;
+  padding-right: 3em;
+  font-size: 2.5ex;
+  text-emphasis-color: white;
+}
+
+.task-time {
+  padding-top: 5px;
+  text-align: right;
+  text-emphasis-color: white;
+}
+
+.card-color {
+  background: #ff3019; /* Old browsers */
+  background: -moz-linear-gradient(
+    -45deg,
+    #ff3019 0%,
+    #cf0404 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    -45deg,
+    #ff3019 0%,
+    #cf0404 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    135deg,
+    #ff3019 0%,
+    #cf0404 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+ion-content {
+  padding-left: 30px;
+}
+
+action-of-the-day {
+  font-size: 5em;
+}
