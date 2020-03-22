@@ -1,4 +1,4 @@
-## Familyar Project 0018 \#wirgegenvirus
+## Familyar Project 0018 \#wirvsvirus
 
 ### The application is divided in a frontend and server part of the application
 
