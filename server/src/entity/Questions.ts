@@ -5,12 +5,12 @@ import {PerBaseEntity} from '../entity/PerBaseEntity'
 export class Questions extends PerBaseEntity{
 
   @Column()
-  questions: string;
+  question: string;
 
-  @Column()
+  @Column({nullable: true})
   category: string;
 
-  @Column()
+  @Column({nullable: true})
   ageOfChild: string;
 
 }

@@ -1,11 +1,6 @@
 import { Column, ManyToOne, Entity, BaseEntity } from 'typeorm'
 import {PerBaseEntity} from '../entity/PerBaseEntity'
 
-export enum Selfmade {
-  YES,
-  NO,
-  MAYBE
-}
 
 @Entity()
 export class Activities extends PerBaseEntity{
@@ -14,25 +9,28 @@ export class Activities extends PerBaseEntity{
   @Column()
   game: string;
 
-  @Column()
+  @Column({nullable: true})
   description: string;
 
-  @Column()
-  selfmade: Selfmade;
+  @Column({nullable: true})
+  selfmade: string;
 
-  @Column()
+  @Column({nullable: true})
   costs: number;
 
-  @Column()
+  @Column({nullable: true})
   link: string;
 
-  @Column()
-  numberPlayers: string;
+  @Column({nullable: true})
+  minParticipants: number
 
-  @Column()
+  @Column({nullable: true})
+  maxParticipants: number;
+
+  @Column({nullable: true})
   agePlayer: string;
 
-  @Column()
+  @Column({nullable: true})
   category: string;
 
 
