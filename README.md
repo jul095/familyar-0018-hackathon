@@ -50,4 +50,5 @@ yarn start:web
 ### Acknoledgements
 ----
 - With the use of [ionic](https://ionicframework.com/)
+- Provided starter code [ionic-conference-app](https://github.com/ionic-team/ionic-conference-app)
 - That guy on [stackoverflow](https://stackoverflow.com/questions/46888298/activity-class-does-not-exist-error-type-3)
